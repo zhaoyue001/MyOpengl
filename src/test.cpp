@@ -12,14 +12,76 @@ void processInput(GLFWwindow *window);
 // settings
 const unsigned int SCR_WIDTH = 800;
 const unsigned int SCR_HEIGHT = 600;
+
+glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 3.0f);
+glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
+glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
+float deltaTime = 0.0f; // 当前帧与上一帧的时间差
+float lastFrame = 0.0f; // 上一帧的时间
+bool firstMouse = true;
+float lastX = 400, lastY = 300;
+float yaw = -90.0f;
+float pitch = 0.0f;
+float fov = 45.0f;
 // process all input: query GLFW whether relevant keys are pressed/released this
 // frame and react accordingly
 // ---------------------------------------------------------------------------------------------------------
 void processInput(GLFWwindow *window) {
+  float currentFrame = glfwGetTime();
+  deltaTime = currentFrame - lastFrame;
+  lastFrame = currentFrame;
+  float cameraSpeed = 2.5f * deltaTime;
   if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
     glfwSetWindowShouldClose(window, true);
+  if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+    cameraPos += cameraSpeed * cameraFront;
+  if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+    cameraPos -= cameraSpeed * cameraFront;
+  if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+    cameraPos -=
+        glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
+  if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+    cameraPos +=
+        glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
 }
+void mouse_callback(GLFWwindow *window, double xpos, double ypos) {
+  if (firstMouse) {
+    lastX = xpos;
+    lastY = ypos;
+    firstMouse = false;
+  }
 
+  float xoffset = xpos - lastX;
+  float yoffset = lastY - ypos;
+  lastX = xpos;
+  lastY = ypos;
+
+  float sensitivity = 0.05;
+  xoffset *= sensitivity;
+  yoffset *= sensitivity;
+
+  yaw += xoffset;
+  pitch += yoffset;
+
+  if (pitch > 89.0f)
+    pitch = 89.0f;
+  if (pitch < -89.0f)
+    pitch = -89.0f;
+
+  glm::vec3 front;
+  front.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
+  front.y = sin(glm::radians(pitch));
+  front.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
+  cameraFront = glm::normalize(front);
+}
+void scroll_callback(GLFWwindow *window, double xoffset, double yoffset) {
+  if (fov >= 1.0f && fov <= 45.0f)
+    fov -= yoffset;
+  if (fov <= 1.0f)
+    fov = 1.0f;
+  if (fov >= 45.0f)
+    fov = 45.0f;
+}
 // glfw: whenever the window size changed (by OS or user resize) this callback
 // function executes
 // ---------------------------------------------------------------------------------------------
@@ -47,7 +109,8 @@ int main() {
   }
   glfwMakeContextCurrent(window);
   glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
-
+  glfwSetCursorPosCallback(window, mouse_callback);
+  glfwSetScrollCallback(window, scroll_callback);
   // glad: load all OpenGL function pointers
   // ---------------------------------------
   if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
@@ -130,16 +193,23 @@ int main() {
 
     glBindVertexArray(VAO);
     for (unsigned i = 1; i <= 10; i++) {
-      glm::mat4 view = glm::mat4(
-          1.0f); // make sure to initialize matrix to identity matrix first
-      glm::mat4 projection = glm::mat4(1.0f);
-      projection =
-          glm::perspective(glm::radians(45.0f),
+      glm::mat4 projection =
+          glm::perspective(glm::radians(fov),
                            (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
-      view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
+
+      // glm::mat4 view = glm::mat4(1.0f);
+      // view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
+      float radius = 20.0f;
+      float camX = sin(glfwGetTime()) * radius;
+      float camZ = cos(glfwGetTime()) * radius;
+      glm::mat4 view;
+      // view = glm::lookAt(glm::vec3(camX, 0.0, camZ), glm::vec3(0.0, 0.0,
+      // 0.0), glm::vec3(0.0, 1.0, 0.0));
+      view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
       glm::mat4 trans1, trans2;
-      trans1 = glm::rotate(trans1, (float)glfwGetTime() * glm::radians(20.0f * i),
-                           glm::vec3(1.0f, 0.3f, 0.5f));
+      trans1 =
+          glm::rotate(trans1, (float)glfwGetTime() * glm::radians(20.0f * i),
+                      glm::vec3(1.0f, 0.3f, 0.5f));
       trans2 = glm::translate(trans2, cubePositions[i]);
       glm::mat4 trans = projection * view * trans2 * trans1;
       shader.setMat4("transform", trans);
