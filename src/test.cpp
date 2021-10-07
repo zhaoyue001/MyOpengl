@@ -1,12 +1,13 @@
 #include <glad/glad.h>
+
 #include <GLFW/glfw3.h>
 #include <Shader.h>
+#include <camera.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include <iostream>
 #include <texture.h>
-#include <camera.h>
 void framebuffer_size_callback(GLFWwindow *window, int width, int height);
 void processInput(GLFWwindow *window);
 
@@ -22,8 +23,8 @@ Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
 bool firstMouse = true;
 float lastX = 400;
 float lastY = 300;
-float deltaTime = 0.0f; // 
-float lastFrame = 0.0f; // 
+float deltaTime = 0.0f; //
+float lastFrame = 0.0f; //
 // process all input: query GLFW whether relevant keys are pressed/released this
 // frame and react accordingly
 // ---------------------------------------------------------------------------------------------------------

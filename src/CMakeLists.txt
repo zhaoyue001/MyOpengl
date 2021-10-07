@@ -6,3 +6,6 @@ LINK_DIRECTORIES(${PROJECT_SOURCE_DIR}/lib/glfw)
 SET(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/bin)
 ADD_EXECUTABLE(MyOpengl test.cpp shader.cpp texture.cpp camera.cpp ${SRC_GLAD})
 TARGET_LINK_LIBRARIES(MyOpengl glfw3 glfw3)
+
+ADD_EXECUTABLE(MyOpengl2 test2.cpp shader.cpp texture.cpp camera.cpp ${SRC_GLAD})
+TARGET_LINK_LIBRARIES(MyOpengl2 glfw3 glfw3)
