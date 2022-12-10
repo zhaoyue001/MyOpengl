@@ -1,11 +1,5 @@
-AUX_SOURCE_DIRECTORY(glad SRC_GLAD)
 
-INCLUDE_DIRECTORIES(${PROJECT_SOURCE_DIR}/include)
-LINK_DIRECTORIES(${PROJECT_SOURCE_DIR}/lib/glfw)
-
-SET(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/bin)
-ADD_EXECUTABLE(MyOpengl test.cpp shader.cpp texture.cpp camera.cpp ${SRC_GLAD})
-TARGET_LINK_LIBRARIES(MyOpengl glfw3 glfw3)
-
-ADD_EXECUTABLE(MyOpengl2 test2.cpp shader.cpp texture.cpp camera.cpp ${SRC_GLAD})
-TARGET_LINK_LIBRARIES(MyOpengl2 glfw3 glfw3)
+add_executable(test main.cpp  shader.cpp fileReader.cpp glad.c)
+target_include_directories(test PRIVATE ${PROJECT_SOURCE_DIR}/include)
+target_link_directories(test PRIVATE ${PROJECT_SOURCE_DIR}/lib)
+target_link_libraries(test glfw3)
