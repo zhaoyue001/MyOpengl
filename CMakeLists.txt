@@ -1,3 +1,4 @@
-cmake_minimum_required(VERSION 3.0)
-PROJECT(MYPROJECT)
-ADD_SUBDIRECTORY(src)
+cmake_minimum_required(VERSION 3.13)
+PROJECT(MyOpengl)
+
+add_subdirectory(src)
