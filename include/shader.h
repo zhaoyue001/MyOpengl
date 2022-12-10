@@ -8,10 +8,15 @@ public:
 
   void getShaderFromFile(SHADER_TYPE shaderTy, std::string path);
   bool compile();
-  unsigned getShaderID();
+  bool isCompiled() { return compiled; }
+  unsigned getShaderID() { return shaderID; }
+  const std::string& getErrInfo() const { return errInfo; }
 
 private:
   std::string shaderContent;
+  std::string errInfo;
+  int ret = 0;
+  bool compiled = false;
   SHADER_TYPE shaderTy;
   unsigned shaderID;
   void genShaderID();

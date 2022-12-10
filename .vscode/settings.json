@@ -59,6 +59,7 @@
         "ranges": "cpp",
         "cinttypes": "cpp",
         "fstream": "cpp",
-        "sstream": "cpp"
+        "sstream": "cpp",
+        "ctime": "cpp"
     }
 }

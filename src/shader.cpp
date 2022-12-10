@@ -1,7 +1,6 @@
 #include "shader.h"
 #include "fileReader.h"
 #include <glad/glad.h>
-#include "iostream"
 void shader::getShaderFromFile(SHADER_TYPE shaderTy, std::string path) {
     fileReader shaderPath(path);
     shaderContent = shaderPath.getContent();
@@ -28,18 +27,13 @@ bool shader::compile() {
     glShaderSource(shaderID, 1, &addr, NULL);
     glCompileShader(shaderID);
     
-    int ret;
     char infoLog[512];
     glGetShaderiv(shaderID, GL_COMPILE_STATUS, &ret);
     if (!ret)
     {
         glGetShaderInfoLog(shaderID, 512, NULL, infoLog);
-        std::cout << "ERROR::SHADER::COMPILATION_FAILED\n" << infoLog << std::endl;
+        errInfo.append(infoLog);
     }
-
+    compiled = true;
     return ret;
-}
-
-unsigned shader::getShaderID() {
-    return shaderID;
 }
