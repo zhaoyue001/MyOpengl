@@ -1,7 +1,8 @@
 #ifndef PROGRAM_H
 #define PROGRAM_H
 #include "shader.h"
-class program {
+class program
+{
 public:
     program() {}
     bool compileVertexShader(std::string path);
@@ -16,6 +17,17 @@ public:
     unsigned getProgramID() { return progID; }
 
     void freeShaders();
+
+    void setVAO();
+
+    void setVBO(const void *data, unsigned dataSize);
+    void setEBO(const void *data, unsigned dataSize);
+    unsigned &getVAO() { return VAO; }
+    unsigned &getVBO() { return VBO; }
+    unsigned &getEBO() { return EBO; }
+
+    void setAttribute(unsigned location, unsigned size, unsigned type, unsigned stride, unsigned offset);
+
 private:
     shader vs;
     shader gs;
@@ -26,5 +38,9 @@ private:
     std::string errInfo;
     void genProgID();
     void attachShaders();
+
+    unsigned VAO = 0;
+    unsigned VBO = 0;
+    unsigned EBO = 0;
 };
 #endif
