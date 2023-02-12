@@ -1,4 +1,14 @@
+#include <glad/glad.h>
 #include "device.h"
+
+// glfw: whenever the window size changed (by OS or user resize) this callback function executes
+// ---------------------------------------------------------------------------------------------
+void framebuffer_size_callback(GLFWwindow *window, int width, int height)
+{
+    // make sure the viewport matches the new window dimensions; note that width and
+    // height will be significantly larger than specified on retina displays.
+    glViewport(0, 0, width, height);
+}
 bool window::init()
 {
     // glfw: initialize and configure
@@ -13,14 +23,14 @@ bool window::init()
     win = glfwCreateWindow(width, height, windowName.c_str(), NULL, NULL);
     if (win == nullptr)
         return false;
-
+    setWindow();
     return true;
 }
 
-void window::setWindow(void (*frameBufferCallBack)(GLFWwindow *window, int width, int height))
+void window::setWindow()
 {
     glfwMakeContextCurrent(win);
-    glfwSetFramebufferSizeCallback(win, frameBufferCallBack);
+    glfwSetFramebufferSizeCallback(win, framebuffer_size_callback);
 }
 
 void window::processInput()

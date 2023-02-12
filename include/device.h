@@ -16,7 +16,7 @@ public:
         return win;
     }
 
-    void setWindow(void (*frameBufferCallBack)(GLFWwindow *window, int width, int height));
+    void setWindow();
     void processInput();
 
     void swapBuffers();
