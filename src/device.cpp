@@ -24,6 +24,12 @@ bool window::init()
     if (win == nullptr)
         return false;
     setWindow();
+
+    // glad: load all OpenGL function pointers
+    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
+    {
+        return -1;
+    }
     return true;
 }
 

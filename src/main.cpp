@@ -8,7 +8,19 @@
 // settings
 const unsigned int SCR_WIDTH = 800;
 const unsigned int SCR_HEIGHT = 600;
-
+// set up vertex data (and buffer(s)) and configure vertex attributes
+// ------------------------------------------------------------------
+float vertices[] = {
+    0.5f, 0.5f, 0.0f,   // top right
+    0.5f, -0.5f, 0.0f,  // bottom right
+    -0.5f, -0.5f, 0.0f, // bottom left
+    -0.5f, 0.5f, 0.0f   // top left
+};
+unsigned int indices[] = {
+    // note that we start from 0!
+    0, 1, 3, // first Triangle
+    1, 2, 3  // second Triangle
+};
 int main()
 {
     window win("LearnOpenGL", SCR_WIDTH, SCR_HEIGHT);
@@ -18,32 +30,12 @@ int main()
         return -1;
     }
 
-    // glad: load all OpenGL function pointers
-    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
-    {
-        return -1;
-    }
-
     program prog;
     prog.compileVertexShader("../shaders/basic.vert");
     prog.compileFragmentShader("../shaders/basic.frag");
 
     prog.linkProgram();
     prog.freeShaders();
-
-    // set up vertex data (and buffer(s)) and configure vertex attributes
-    // ------------------------------------------------------------------
-    float vertices[] = {
-        0.5f, 0.5f, 0.0f,   // top right
-        0.5f, -0.5f, 0.0f,  // bottom right
-        -0.5f, -0.5f, 0.0f, // bottom left
-        -0.5f, 0.5f, 0.0f   // top left
-    };
-    unsigned int indices[] = {
-        // note that we start from 0!
-        0, 1, 3, // first Triangle
-        1, 2, 3  // second Triangle
-    };
 
     prog.setVAO();
     prog.setVBO(vertices, sizeof(vertices));
