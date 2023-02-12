@@ -60,6 +60,7 @@
         "cinttypes": "cpp",
         "fstream": "cpp",
         "sstream": "cpp",
-        "ctime": "cpp"
+        "ctime": "cpp",
+        "*.rh": "cpp"
     }
 }

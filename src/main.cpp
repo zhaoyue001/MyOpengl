@@ -3,7 +3,7 @@
 #include <iostream>
 #include "program.h"
 #include "shader.h"
-#include "windows.h"
+#include "device.h"
 
 // glfw: whenever the window size changed (by OS or user resize) this callback function executes
 // ---------------------------------------------------------------------------------------------
@@ -20,7 +20,7 @@ const unsigned int SCR_HEIGHT = 600;
 
 int main()
 {
-    windows win("LearnOpenGL", SCR_WIDTH, SCR_HEIGHT);
+    window win("LearnOpenGL", SCR_WIDTH, SCR_HEIGHT);
     if (!win.init())
     {
         std::cout << "Failed to create GLFW window" << std::endl;

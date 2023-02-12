@@ -2,18 +2,18 @@
 #define WINDOWS_H
 #include <glfw/glfw3.h>
 #include <string>
-class windows
+class window
 {
 public:
-    windows(const std::string windowName, unsigned width, unsigned height) : windowName(windowName),
+    window(const std::string windowName, unsigned width, unsigned height) : windowName(windowName),
                                                                              width(width),
                                                                              height(height),
-                                                                             window(nullptr) {}
+                                                                             win(nullptr) {}
 
     bool init();
     GLFWwindow *getWindow()
     {
-        return window;
+        return win;
     }
 
     void setWindow(void (*frameBufferCallBack)(GLFWwindow *window, int width, int height));
@@ -23,7 +23,7 @@ public:
     void pollEvents();
 
     bool shouldClose();
-    ~windows()
+    ~window()
     {
         glfwTerminate();
     }
@@ -33,6 +33,6 @@ private:
     unsigned height;
 
     std::string windowName;
-    GLFWwindow *window;
+    GLFWwindow *win;
 };
 #endif
