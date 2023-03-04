@@ -88,3 +88,8 @@ void program::setAttribute(unsigned location, unsigned size, unsigned type, unsi
     glVertexAttribPointer(location, size, type, GL_FALSE, stride, (void *)offset);
     glEnableVertexAttribArray(location);
 }
+
+bool program::setTexture(std::string path)
+{
+    return tex.set2DTexture(path);
+}

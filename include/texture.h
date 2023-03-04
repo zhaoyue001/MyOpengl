@@ -4,10 +4,9 @@
 #include "imageReader.h"
 class texture {
 public:
-    texture(std::string path) : imgFilePath(path) {}
-    void set2DTexture();
+    texture() {}
+    bool set2DTexture(std::string path);
 private:
-    std::string imgFilePath;
     unsigned textureID;
     imgReader reader;
     int width;

@@ -1,6 +1,7 @@
 #ifndef PROGRAM_H
 #define PROGRAM_H
 #include "shader.h"
+#include "texture.h"
 class program
 {
 public:
@@ -28,6 +29,7 @@ public:
 
     void setAttribute(unsigned location, unsigned size, unsigned type, unsigned stride, unsigned offset);
 
+    bool setTexture(std::string path);
 private:
     shader vs;
     shader gs;
@@ -42,5 +44,7 @@ private:
     unsigned VAO = 0;
     unsigned VBO = 0;
     unsigned EBO = 0;
+
+    texture tex;
 };
 #endif
