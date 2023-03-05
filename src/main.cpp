@@ -4,7 +4,7 @@
 #include "device.h"
 #include "program.h"
 #include "shader.h"
-
+#include "config.h"
 // settings
 const unsigned int SCR_WIDTH = 800;
 const unsigned int SCR_HEIGHT = 600;
@@ -31,8 +31,8 @@ int main()
     CHECK_RESULT(ret)
     
     program prog;
-    ret &= prog.compileVertexShader("../../shaders/texture.vert");
-    ret &= prog.compileFragmentShader("../../shaders/texture.frag");
+    ret &= prog.compileVertexShader(SHADERS_PATH + std::string("/texture.vert"));
+    ret &= prog.compileFragmentShader(SHADERS_PATH + std::string("/texture.frag"));
     CHECK_RESULT(ret)
 
     ret &= prog.linkProgram();
@@ -46,7 +46,7 @@ int main()
     prog.setAttribute(0, 3, GL_FLOAT, 8 * sizeof(float), 0);
     prog.setAttribute(1, 3, GL_FLOAT, 8 * sizeof(float), 3 * sizeof(float));
     prog.setAttribute(2, 2, GL_FLOAT, 8 * sizeof(float), 6 * sizeof(float));
-    ret &= prog.setTexture("../../resource/container.jpg");
+    ret &= prog.setTexture(RESOURCE_PATH + std::string("/container.jpg"));
     CHECK_RESULT(ret)
 
     while (!win.shouldClose())

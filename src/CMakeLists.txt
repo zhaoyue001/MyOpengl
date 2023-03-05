@@ -1,4 +1,3 @@
-
 add_executable(test
                main.cpp
                buffer.cpp
@@ -10,7 +9,7 @@ add_executable(test
                utils/imageReader.cpp
                glad.c)
 target_include_directories(test PRIVATE ${PROJECT_SOURCE_DIR}/include)
-
+target_include_directories(test PRIVATE ${CMAKE_BINARY_DIR})
 if(WIN32)
     target_link_directories(test PRIVATE ${PROJECT_SOURCE_DIR}/lib)
     target_link_libraries(test glfw3)
