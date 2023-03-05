@@ -9,8 +9,13 @@ void framebuffer_size_callback(GLFWwindow *window, int width, int height)
     // height will be significantly larger than specified on retina displays.
     glViewport(0, 0, width, height);
 }
+void errorCallback(int error, const char* description)
+{
+    fprintf(stderr, "GLFW error %d: %s\n", error, description);
+}
 bool window::init()
 {
+    glfwSetErrorCallback(errorCallback);
     // glfw: initialize and configure
     // ------------------------------
     glfwInit();

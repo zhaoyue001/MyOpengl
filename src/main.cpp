@@ -1,5 +1,5 @@
 #include <glad/glad.h>
-#include <glfw/glfw3.h>
+#include <GLFW/glfw3.h>
 #include <iostream>
 #include "device.h"
 #include "program.h"
@@ -31,8 +31,8 @@ int main()
     CHECK_RESULT(ret)
     
     program prog;
-    ret &= prog.compileVertexShader("../shaders/texture.vert");
-    ret &= prog.compileFragmentShader("../shaders/texture.frag");
+    ret &= prog.compileVertexShader("../../shaders/texture.vert");
+    ret &= prog.compileFragmentShader("../../shaders/texture.frag");
     CHECK_RESULT(ret)
 
     ret &= prog.linkProgram();
@@ -46,9 +46,9 @@ int main()
     prog.setAttribute(0, 3, GL_FLOAT, 8 * sizeof(float), 0);
     prog.setAttribute(1, 3, GL_FLOAT, 8 * sizeof(float), 3 * sizeof(float));
     prog.setAttribute(2, 2, GL_FLOAT, 8 * sizeof(float), 6 * sizeof(float));
-    ret &= prog.setTexture("../resource/container.jpg");
+    ret &= prog.setTexture("../../resource/container.jpg");
     CHECK_RESULT(ret)
-    
+
     while (!win.shouldClose())
     {
         win.processInput();
