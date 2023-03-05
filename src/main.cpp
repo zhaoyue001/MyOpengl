@@ -48,7 +48,7 @@ int main()
     prog.setAttribute(2, 2, GL_FLOAT, 8 * sizeof(float), 6 * sizeof(float));
     ret &= prog.setTexture("../../resource/container.jpg");
     CHECK_RESULT(ret)
-    
+
     while (!win.shouldClose())
     {
         win.processInput();
