@@ -1,7 +1,7 @@
 #include "fileReader.h"
 #include <fstream>
 #include "iostream"
-#include "direct.h"
+
 bool fileReader::readFile() {
   std::ifstream inputFile(filePath);
   if (!inputFile.is_open())
