@@ -2,6 +2,8 @@
 #define PROGRAM_H
 #include "shader.h"
 #include "texture.h"
+#include "config.h"
+#include "uniform.h"
 class program
 {
 public:
@@ -30,6 +32,8 @@ public:
     void setAttribute(unsigned location, unsigned size, unsigned type, unsigned stride, unsigned offset);
 
     bool setTexture(std::string path);
+
+    bool setUnifrom(std::string name, unsigned count, void *data, uniform::TYPE type);
 private:
     shader vs;
     shader gs;

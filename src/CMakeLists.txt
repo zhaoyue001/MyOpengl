@@ -5,6 +5,7 @@ add_executable(test
                texture.cpp
                program.cpp
                device.cpp
+               uniform.cpp
                utils/fileReader.cpp
                utils/imageReader.cpp
                glad.c)
