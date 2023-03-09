@@ -1,20 +1,19 @@
 #ifndef FILE_WRITER_H
 #define FILE_WRITER_H
-#include "string"
 #include "assert.h"
-class fileReader
-{
+#include "string"
+class fileReader {
 private:
-    std::string filePath;
-    std::string fileContent;
+  std::string filePath;
+  std::string fileContent;
 
-    bool readFile();
+  bool readFile();
 
 public:
-    fileReader(const std::string filePath) : filePath(filePath) {};
-    fileReader () = delete;
-    ~fileReader() {};
-    std::string getContent();
+  fileReader(const std::string filePath) : filePath(filePath){};
+  fileReader() = delete;
+  ~fileReader(){};
+  std::string getContent();
 };
 
 #endif

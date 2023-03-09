@@ -2,18 +2,9 @@
 #define SHADER_H
 #include "string"
 
-class shader
-{
+class shader {
 public:
-  enum SHADER_TYPE
-  {
-    NODEF,
-    VS,
-    TCS,
-    TES,
-    GS,
-    FS
-  };
+  enum SHADER_TYPE { NODEF, VS, TCS, TES, GS, FS };
   shader() : compiled(false), shaderTy(NODEF), ret(0), shaderID(-1){};
   shader(const shader &) = delete;
 

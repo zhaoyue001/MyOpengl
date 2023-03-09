@@ -1,6 +1,6 @@
 #include "fileReader.h"
-#include <fstream>
 #include "iostream"
+#include <fstream>
 
 bool fileReader::readFile() {
   std::ifstream inputFile(filePath);
@@ -16,8 +16,8 @@ bool fileReader::readFile() {
 }
 
 std::string fileReader::getContent() {
-    bool ret = readFile();
-    if (!ret)
-        assert(0 && "Failed to get the file content");
-    return fileContent;
+  bool ret = readFile();
+  if (!ret)
+    assert(0 && "Failed to get the file content");
+  return fileContent;
 }
