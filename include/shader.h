@@ -1,21 +1,25 @@
 #ifndef SHADER_H
 #define SHADER_H
 #include "string"
-enum SHADER_TYPE
-{
-  VS,
-  TCS,
-  TES,
-  GS,
-  FS
-};
+
 class shader
 {
 public:
-  shader(){};
+  enum SHADER_TYPE
+  {
+    NODEF,
+    VS,
+    TCS,
+    TES,
+    GS,
+    FS
+  };
+  shader() : compiled(false), shaderTy(NODEF), ret(0), shaderID(-1){};
+  shader(const shader &) = delete;
+
+  bool compile();
 
   void getShaderFromFile(SHADER_TYPE shaderTy, std::string path);
-  bool compile();
   bool isCompiled() { return compiled; }
   unsigned getShaderID() { return shaderID; }
   const std::string &getErrInfo() const { return errInfo; }
@@ -23,8 +27,8 @@ public:
 private:
   std::string shaderContent;
   std::string errInfo;
-  int ret = 0;
-  bool compiled = false;
+  int ret;
+  bool compiled;
   SHADER_TYPE shaderTy;
   unsigned shaderID;
   void genShaderID();

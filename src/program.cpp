@@ -3,19 +3,19 @@
 
 bool program::compileVertexShader(std::string path)
 {
-    vs.getShaderFromFile(VS, SHADERS_PATH + path);
+    vs.getShaderFromFile(shader::VS, SHADERS_PATH + path);
     return vs.compile();
 }
 
 bool program::compileGeometryShader(std::string path)
 {
-    gs.getShaderFromFile(GS, SHADERS_PATH + path);
+    gs.getShaderFromFile(shader::GS, SHADERS_PATH + path);
     return gs.compile();
 }
 
 bool program::compileFragmentShader(std::string path)
 {
-    fs.getShaderFromFile(FS, SHADERS_PATH + path);
+    fs.getShaderFromFile(shader::FS, SHADERS_PATH + path);
     return fs.compile();
 }
 
@@ -98,4 +98,9 @@ bool program::setUnifrom(std::string name, unsigned count, void *data, uniform::
 {
     uniform uni(progID);
     uni.setData(name, count, data, type);
+}
+
+void program::use()
+{
+    glUseProgram(progID);
 }

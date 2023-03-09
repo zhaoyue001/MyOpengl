@@ -15,7 +15,7 @@ public:
     unsigned getVSID() { return vs.getShaderID(); }
     unsigned getFSID() { return fs.getShaderID(); }
     unsigned getGSID() { return gs.getShaderID(); }
-
+    void use();
     bool linkProgram();
     unsigned getProgramID() { return progID; }
 
