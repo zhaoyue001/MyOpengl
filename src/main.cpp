@@ -2,7 +2,6 @@
 #include "device.h"
 #include "program.h"
 #include "shader.h"
-#include <GLFW/glfw3.h>
 #include <iostream>
 // settings
 const unsigned int SCR_WIDTH = 800;
