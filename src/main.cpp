@@ -3,7 +3,6 @@
 #include "program.h"
 #include "shader.h"
 #include <GLFW/glfw3.h>
-#include <glad/glad.h>
 #include <iostream>
 // settings
 const unsigned int SCR_WIDTH = 800;
@@ -36,7 +35,7 @@ int main() {
   ret &= prog.compileFragmentShader("/texture.frag");
   CHECK_RESULT(ret)
 
-  ret &= prog.linkProgram();
+  ret &= prog.link();
   CHECK_RESULT(ret)
 
   prog.freeShaders();
@@ -53,22 +52,14 @@ int main() {
   while (!win.shouldClose()) {
     win.processInput();
 
-    glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-    glClear(GL_COLOR_BUFFER_BIT);
+    prog.clear(1, 1, 1, 1);
     prog.use();
-    glBindVertexArray(prog.getVAO());
-    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+    prog.bindVertexArray();
 
+    prog.drawElement(program::TRIANGLES, 6, program::UNSIGNED_INT, 0);
     win.swapBuffers();
     win.pollEvents();
   }
-
-  // optional: de-allocate all resources once they've outlived their purpose:
-  // ------------------------------------------------------------------------
-  glDeleteVertexArrays(1, &prog.getVAO());
-  glDeleteBuffers(1, &prog.getVBO());
-  glDeleteBuffers(1, &prog.getEBO());
-  glDeleteProgram(prog.getProgramID());
 
   return 0;
 }

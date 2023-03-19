@@ -1,6 +1,13 @@
 #include "program.h"
 #include <glad/glad.h>
 
+program::~program() {
+  glDeleteVertexArrays(1, &getVAO());
+  glDeleteBuffers(1, &getVBO());
+  glDeleteBuffers(1, &getEBO());
+  glDeleteProgram(getProgramID());
+}
+
 bool program::compileVertexShader(std::string path) {
   vs.getShaderFromFile(shader::VS, SHADERS_PATH + path);
   return vs.compile();
@@ -27,7 +34,7 @@ void program::attachShaders() {
     glAttachShader(progID, gs.getShaderID());
 }
 
-bool program::linkProgram() {
+bool program::link() {
   genProgID();
   attachShaders();
   glLinkProgram(progID);
@@ -39,6 +46,17 @@ bool program::linkProgram() {
     errInfo.append(infoLog);
   }
   return ret;
+}
+
+void program::drawElement(MODE mode, unsigned count, ELE_TYPE eleTypem, unsigned indices)
+{
+  glDrawElements(GL_POINTS + mode, count, GL_BYTE + eleTypem, 0);
+}
+void program::bindVertexArray() { glBindVertexArray(getVAO()); }
+
+void program::clear(float R, float G, float B, float A) {
+  glClearColor(R, G, B, A);
+  glClear(GL_COLOR_BUFFER_BIT);
 }
 
 void program::freeShaders() {
